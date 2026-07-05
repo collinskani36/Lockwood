@@ -1,0 +1,143 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ring-offset-background: var(--background);
+
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-whatsapp: var(--whatsapp);
+  --color-whatsapp-foreground: var(--whatsapp-foreground);
+
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  --font-display: "Fraunces", Georgia, serif;
+  --font-sans: "Plus Jakarta Sans", system-ui, sans-serif;
+}
+
+:root {
+  --radius: 0.75rem;
+
+  /* Warm neutral palette — Lockwood Properties */
+  --background: oklch(0.985 0.005 80);
+  --foreground: oklch(0.22 0.025 50);
+
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.22 0.025 50);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.22 0.025 50);
+
+  /* Deep forest green — trust + property */
+  --primary: oklch(0.36 0.06 155);
+  --primary-foreground: oklch(0.985 0.01 95);
+
+  /* Warm terracotta accent */
+  --accent: oklch(0.66 0.16 45);
+  --accent-foreground: oklch(0.99 0.005 80);
+
+  --secondary: oklch(0.94 0.015 80);
+  --secondary-foreground: oklch(0.28 0.03 50);
+
+  --muted: oklch(0.95 0.012 80);
+  --muted-foreground: oklch(0.5 0.02 60);
+
+  --destructive: oklch(0.55 0.21 27);
+  --destructive-foreground: oklch(0.99 0.005 80);
+
+  --success: oklch(0.6 0.14 155);
+  --success-foreground: oklch(0.99 0.005 80);
+
+  --warning: oklch(0.78 0.15 75);
+  --warning-foreground: oklch(0.25 0.03 50);
+
+  --whatsapp: oklch(0.62 0.18 145);
+  --whatsapp-foreground: oklch(0.99 0.005 80);
+
+  --border: oklch(0.9 0.015 70);
+  --input: oklch(0.92 0.015 70);
+  --ring: oklch(0.36 0.06 155);
+
+  --sidebar: oklch(0.985 0.005 80);
+  --sidebar-foreground: oklch(0.22 0.025 50);
+  --sidebar-primary: oklch(0.36 0.06 155);
+  --sidebar-primary-foreground: oklch(0.985 0.01 95);
+  --sidebar-accent: oklch(0.94 0.015 80);
+  --sidebar-accent-foreground: oklch(0.28 0.03 50);
+  --sidebar-border: oklch(0.9 0.015 70);
+  --sidebar-ring: oklch(0.36 0.06 155);
+}
+
+.dark {
+  --background: oklch(0.18 0.02 50);
+  --foreground: oklch(0.96 0.01 80);
+  --card: oklch(0.22 0.025 50);
+  --card-foreground: oklch(0.96 0.01 80);
+  --popover: oklch(0.22 0.025 50);
+  --popover-foreground: oklch(0.96 0.01 80);
+  --primary: oklch(0.7 0.1 155);
+  --primary-foreground: oklch(0.18 0.02 50);
+  --secondary: oklch(0.28 0.03 50);
+  --secondary-foreground: oklch(0.96 0.01 80);
+  --muted: oklch(0.28 0.03 50);
+  --muted-foreground: oklch(0.72 0.02 70);
+  --accent: oklch(0.7 0.16 45);
+  --accent-foreground: oklch(0.18 0.02 50);
+  --destructive: oklch(0.7 0.2 27);
+  --destructive-foreground: oklch(0.99 0.005 80);
+  --border: oklch(1 0 0 / 12%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.7 0.1 155);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, .font-display {
+    font-family: var(--font-display);
+    letter-spacing: -0.015em;
+  }
+}
