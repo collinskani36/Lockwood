@@ -1,6 +1,6 @@
 import { createFileRoute, Link, Outlet, useNavigate, useRouter } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Home, LayoutGrid, MessageSquare, LogOut, Image, Wrench, Users } from "lucide-react";
+import { Home, LayoutGrid, MessageSquare, LogOut, Image, Wrench, Users, Contact } from "lucide-react";
 import { isAuthenticated, signIn, signOut, getUserRole, type UserRole } from "@/lib/auth";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -185,6 +185,7 @@ function AdminShell({
           <NavItem to="/admin/photos" icon={Image}>Photo Approvals</NavItem>
           <NavItem to="/admin/maintenance" icon={Wrench}>Maintenance</NavItem>
           <NavItem to="/admin/caretakers" icon={Users}>Caretakers</NavItem>
+          <NavItem to="/admin/agents" icon={Contact}>Agents</NavItem>
           <div className="mt-auto border-t border-border pt-3">
             <Button
               variant="ghost"
@@ -212,6 +213,7 @@ function AdminShell({
             <Link to="/admin/photos" className="rounded px-2 py-1 text-xs">Photos</Link>
             <Link to="/admin/maintenance" className="rounded px-2 py-1 text-xs">Maint.</Link>
             <Link to="/admin/caretakers" className="rounded px-2 py-1 text-xs">Care.</Link>
+            <Link to="/admin/agents" className="rounded px-2 py-1 text-xs">Agents</Link>
           </div>
         </header>
         <main className="flex-1 overflow-y-auto p-6 lg:p-10">

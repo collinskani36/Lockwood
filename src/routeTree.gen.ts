@@ -21,6 +21,7 @@ import { Route as AdminPhotosRouteImport } from './routes/admin.photos'
 import { Route as AdminMaintenanceRouteImport } from './routes/admin.maintenance'
 import { Route as AdminInquiriesRouteImport } from './routes/admin.inquiries'
 import { Route as AdminCaretakersRouteImport } from './routes/admin.caretakers'
+import { Route as AdminAgentsRouteImport } from './routes/admin.agents'
 import { Route as AdminListingsIndexRouteImport } from './routes/admin.listings.index'
 import { Route as AdminListingsNewRouteImport } from './routes/admin.listings.new'
 import { Route as AdminListingsIdEditRouteImport } from './routes/admin.listings.$id.edit'
@@ -85,6 +86,11 @@ const AdminCaretakersRoute = AdminCaretakersRouteImport.update({
   path: '/caretakers',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminAgentsRoute = AdminAgentsRouteImport.update({
+  id: '/agents',
+  path: '/agents',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminListingsIndexRoute = AdminListingsIndexRouteImport.update({
   id: '/listings/',
   path: '/listings/',
@@ -105,6 +111,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/admin': typeof AdminRouteWithChildren
   '/caretaker': typeof CaretakerRouteWithChildren
+  '/admin/agents': typeof AdminAgentsRoute
   '/admin/caretakers': typeof AdminCaretakersRoute
   '/admin/inquiries': typeof AdminInquiriesRoute
   '/admin/maintenance': typeof AdminMaintenanceRoute
@@ -120,6 +127,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/admin/agents': typeof AdminAgentsRoute
   '/admin/caretakers': typeof AdminCaretakersRoute
   '/admin/inquiries': typeof AdminInquiriesRoute
   '/admin/maintenance': typeof AdminMaintenanceRoute
@@ -138,6 +146,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/admin': typeof AdminRouteWithChildren
   '/caretaker': typeof CaretakerRouteWithChildren
+  '/admin/agents': typeof AdminAgentsRoute
   '/admin/caretakers': typeof AdminCaretakersRoute
   '/admin/inquiries': typeof AdminInquiriesRoute
   '/admin/maintenance': typeof AdminMaintenanceRoute
@@ -157,6 +166,7 @@ export interface FileRouteTypes {
     | '/'
     | '/admin'
     | '/caretaker'
+    | '/admin/agents'
     | '/admin/caretakers'
     | '/admin/inquiries'
     | '/admin/maintenance'
@@ -172,6 +182,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/admin/agents'
     | '/admin/caretakers'
     | '/admin/inquiries'
     | '/admin/maintenance'
@@ -189,6 +200,7 @@ export interface FileRouteTypes {
     | '/'
     | '/admin'
     | '/caretaker'
+    | '/admin/agents'
     | '/admin/caretakers'
     | '/admin/inquiries'
     | '/admin/maintenance'
@@ -296,6 +308,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminCaretakersRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/agents': {
+      id: '/admin/agents'
+      path: '/agents'
+      fullPath: '/admin/agents'
+      preLoaderRoute: typeof AdminAgentsRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/listings/': {
       id: '/admin/listings/'
       path: '/listings'
@@ -321,6 +340,7 @@ declare module '@tanstack/react-router' {
 }
 
 interface AdminRouteChildren {
+  AdminAgentsRoute: typeof AdminAgentsRoute
   AdminCaretakersRoute: typeof AdminCaretakersRoute
   AdminInquiriesRoute: typeof AdminInquiriesRoute
   AdminMaintenanceRoute: typeof AdminMaintenanceRoute
@@ -332,6 +352,7 @@ interface AdminRouteChildren {
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
+  AdminAgentsRoute: AdminAgentsRoute,
   AdminCaretakersRoute: AdminCaretakersRoute,
   AdminInquiriesRoute: AdminInquiriesRoute,
   AdminMaintenanceRoute: AdminMaintenanceRoute,

@@ -81,6 +81,29 @@ function ListingDetailPage() {
   const photos = [...listing.photos].sort((a, b) => a.sortOrder - b.sortOrder);
   const waMessage = `Hi Lockwood Properties, I'm interested in "${listing.title}" (KES ${listing.price.toLocaleString("en-KE")}/month). Is it still available?`;
 
+  // WhatsApp clicks skip the inquiry form entirely, so there's no name/phone
+  // to capture here — this just records that a WhatsApp inquiry happened for
+  // this listing so it shows up in /admin/inquiries with channel "whatsapp",
+  // same as the form and call channels. It's fire-and-forget: a failed log
+  // write should never block the visitor from actually opening WhatsApp.
+  const logWhatsappInquiry = useMutation({
+    mutationFn: createInquiry,
+    onError: (e: Error) => console.error("[WhatsApp inquiry log] failed:", e),
+  });
+
+  function handleWhatsAppClick() {
+    if (!listing) return;
+    logWhatsappInquiry.mutate({
+      listingId: listing.id,
+      agentId: listing.agent?.id ?? null,
+      name: "WhatsApp inquiry",
+      phoneNumber: "Not provided",
+      message: waMessage,
+      preferredMoveIn: null,
+      contactChannel: "whatsapp",
+    });
+  }
+
   return (
     <div className="flex min-h-screen flex-col bg-background">
       <SiteHeader />
@@ -109,9 +132,7 @@ function ListingDetailPage() {
                 </h1>
                 <p className="mt-2 flex items-center gap-1.5 text-muted-foreground">
                   <MapPin className="h-4 w-4" />
-                  {listing.addressDetail
-                    ? `${listing.addressDetail}, ${listing.location.name}`
-                    : `${listing.location.name}, ${listing.location.county}`}
+                  {listing.location.name}
                 </p>
               </div>
               <div className="text-right">
@@ -170,26 +191,6 @@ function ListingDetailPage() {
               </section>
             )}
 
-            <section className="mt-8">
-              <h2 className="font-display text-xl font-semibold">Location</h2>
-              {/* TODO: SUPABASE / MAPS — swap this placeholder for Google Maps or Mapbox using latitude/longitude */}
-              <div className="mt-4 grid h-64 place-items-center overflow-hidden rounded-xl border border-border bg-muted text-sm text-muted-foreground">
-                {listing.latitude != null && listing.longitude != null ? (
-                  <div className="text-center">
-                    <MapPin className="mx-auto h-8 w-8 text-primary" />
-                    <p className="mt-2 font-medium text-foreground">
-                      {listing.location.name}, {listing.location.county}
-                    </p>
-                    <p className="mt-1 text-xs">
-                      {listing.latitude.toFixed(4)}, {listing.longitude.toFixed(4)}
-                    </p>
-                    <p className="mt-2 text-xs italic">Map preview placeholder</p>
-                  </div>
-                ) : (
-                  <p>Map coordinates not available</p>
-                )}
-              </div>
-            </section>
           </div>
 
           {/* Sidebar / CTAs */}
@@ -217,6 +218,7 @@ function ListingDetailPage() {
                     href={buildWhatsAppLink(listing.agent.whatsappNumber, waMessage)}
                     target="_blank"
                     rel="noopener noreferrer"
+                    onClick={handleWhatsAppClick}
                   >
                     <MessageCircle className="mr-2 h-5 w-5" />
                     Inquire via WhatsApp
@@ -243,6 +245,7 @@ function ListingDetailPage() {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="font-semibold text-primary underline"
+                    onClick={handleWhatsAppClick}
                   >
                     Message us directly on WhatsApp
                   </a>
