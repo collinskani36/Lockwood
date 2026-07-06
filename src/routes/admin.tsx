@@ -86,7 +86,7 @@ function LoginScreen({ onAuthed }: { onAuthed: (role: UserRole | null) => void }
         <Link to="/" className="mb-6 flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground">
           <Home className="h-4 w-4" /> Back to site
         </Link>
-        <h1 className="font-display text-2xl font-semibold">Admin sign in</h1>
+        <h1 className="font-display text-2xl font-semibold">Sign in</h1>
         <p className="mt-1 text-sm text-muted-foreground">
           Sign in to manage listings and inquiries.
         </p>
